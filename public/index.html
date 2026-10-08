@@ -13,19 +13,41 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- Icon sprite -->
+  <svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false">
+    <defs>
+      <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+      <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
+      <symbol id="i-swap" viewBox="0 0 24 24"><path d="M4 8h14l-3-3M20 16H6l3 3"/></symbol>
+      <symbol id="i-laptop" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="11" rx="1.5"/><path d="M2 20h20"/></symbol>
+      <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 21s-8-5-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 6-8 11-8 11z"/></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></symbol>
+    </defs>
+  </svg>
+
   <a class="skip" href="#identify">Skip to the identifier</a>
 
-  <header class="nav">
+  <!-- ============ HEADER ============ -->
+  <header class="nav" id="nav">
     <a class="brand" href="#top" aria-label="Touch Grass, home"><span class="brand-mark" aria-hidden="true">🌿</span> Touch Grass</a>
-    <nav aria-label="Primary">
-      <a class="nav-link" href="#how">How it works</a>
-      <a class="nav-link" href="#open">Why open source</a>
-      <a class="nav-link" href="#faq">FAQ</a>
+    <div class="nav-right">
+      <nav id="site-nav" aria-label="Primary">
+        <a class="nav-link" href="#explore">What you can find</a>
+        <a class="nav-link" href="#how">How it works</a>
+        <a class="nav-link" href="#open">Open source</a>
+        <a class="nav-link" href="#safety">Safety &amp; privacy</a>
+        <a class="nav-link" href="#faq">FAQ</a>
+      </nav>
       <a class="btn btn-small" href="#identify">Identify</a>
-    </nav>
+      <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </header>
 
+  <!-- ============ BODY ============ -->
   <main id="top">
+    <!-- 1. Hero -->
     <section class="hero">
       <div class="hero-copy">
         <p class="eyebrow">Open-source AI · Made for the outdoors</p>
@@ -35,11 +57,6 @@
           <a class="btn btn-lg" href="#identify">Identify something</a>
           <a class="btn btn-ghost btn-lg" href="#how">See how it works</a>
         </div>
-        <ul class="trust" aria-label="Highlights">
-          <li>No account needed</li>
-          <li>Photos never stored</li>
-          <li>Open-weight model</li>
-        </ul>
       </div>
 
       <figure class="sample" aria-label="Example result">
@@ -58,10 +75,11 @@
       </figure>
     </section>
 
+    <!-- 2. Identifier (the product) -->
     <section id="identify" class="identify" aria-labelledby="identify-title">
       <div class="section-head">
         <h2 id="identify-title">Identify what you found</h2>
-        <p>Get close, keep it in focus, and include leaves, flowers or markings.</p>
+        <p>Add a photo and get a field-guide card in seconds.</p>
       </div>
 
       <div class="panel">
@@ -86,9 +104,33 @@
         <p id="status" class="status" role="status" aria-live="polite" hidden></p>
       </div>
 
+      <ul class="tips" aria-label="Photo tips">
+        <li><svg class="ico-tick" aria-hidden="true"><use href="#i-check"/></svg>Use daylight</li>
+        <li><svg class="ico-tick" aria-hidden="true"><use href="#i-check"/></svg>Get close and focus</li>
+        <li><svg class="ico-tick" aria-hidden="true"><use href="#i-check"/></svg>Show leaves, flowers or markings</li>
+        <li><svg class="ico-tick" aria-hidden="true"><use href="#i-check"/></svg>Retake from another angle if unsure</li>
+      </ul>
+
       <article id="result" class="card" aria-live="polite" hidden></article>
     </section>
 
+    <!-- 3. What you can find -->
+    <section id="explore" class="explore" aria-labelledby="explore-title">
+      <div class="section-head">
+        <h2 id="explore-title">If it's alive and outdoors, snap it</h2>
+        <p>From the weed in the pavement crack to the bird on the fence, Touch Grass gives you a place to start.</p>
+      </div>
+      <div class="cards cards-3">
+        <article class="tile tile-icon"><span class="emoji" aria-hidden="true">🌼</span><h3>Wildflowers &amp; plants</h3><p>Garden visitors, roadside flowers, ferns and weeds.</p></article>
+        <article class="tile tile-icon"><span class="emoji" aria-hidden="true">🌳</span><h3>Trees &amp; leaves</h3><p>A single leaf, bark or seed pod is often enough to narrow it down.</p></article>
+        <article class="tile tile-icon"><span class="emoji" aria-hidden="true">🐦</span><h3>Birds</h3><p>Garden regulars and trail surprises, with the field marks to look for.</p></article>
+        <article class="tile tile-icon"><span class="emoji" aria-hidden="true">🦋</span><h3>Insects &amp; spiders</h3><p>Butterflies, beetles, bees and the tiny things under rocks and leaves.</p></article>
+        <article class="tile tile-icon"><span class="emoji" aria-hidden="true">🦊</span><h3>Mammals &amp; reptiles</h3><p>Tracks, burrows and the occasional lucky sighting.</p></article>
+        <article class="tile tile-icon"><span class="emoji" aria-hidden="true">🍄</span><h3>Mushrooms &amp; fungi</h3><p>Fascinating to learn about, but never a guide to what is safe to eat.</p></article>
+      </div>
+    </section>
+
+    <!-- 4. How it works -->
     <section id="how" class="how" aria-labelledby="how-title">
       <div class="section-head">
         <h2 id="how-title">How it works</h2>
@@ -101,18 +143,56 @@
       </ol>
     </section>
 
+    <!-- 5. Open source -->
     <section id="open" class="open" aria-labelledby="open-title">
       <div class="section-head">
-        <h2 id="open-title">Why open source?</h2>
+        <h2 id="open-title">Built on open source</h2>
         <p>Powered by <span class="model-badge" id="model-badge">an open-weight vision model</span></p>
       </div>
-      <div class="grid">
-        <div class="tile"><h3>Swap the model</h3><p>The app talks to any OpenAI-compatible endpoint. Point it at a bigger or more specialised open model without changing a line of the app.</p></div>
-        <div class="tile"><h3>Keep photos private</h3><p>Run the model on your own machine and your photos never leave it. Nothing is saved on the server either way.</p></div>
-        <div class="tile"><h3>No lock-in, no cost per scan</h3><p>Open weights mean you choose where it runs, what it costs and how it behaves, from a laptop with no internet to a cloud host.</p></div>
+      <div class="cards cards-3">
+        <article class="tile"><svg class="ico" aria-hidden="true"><use href="#i-swap"/></svg><h3>Swap the model</h3><p>The app talks to any OpenAI-compatible endpoint. Point it at a bigger or more specialised open model without changing the app.</p></article>
+        <article class="tile"><svg class="ico" aria-hidden="true"><use href="#i-lock"/></svg><h3>Keep photos private</h3><p>Run the model on your own machine and your photos never leave it.</p></article>
+        <article class="tile"><svg class="ico" aria-hidden="true"><use href="#i-laptop"/></svg><h3>No lock-in, no cost per scan</h3><p>Open weights mean you choose where it runs and what it costs, from a laptop to a cloud host.</p></article>
+      </div>
+
+      <div class="run">
+        <div>
+          <h3>Run it yourself</h3>
+          <p>A tiny Node app with one dependency. Install Ollama, pull a vision model and start the server.</p>
+        </div>
+        <pre><code>ollama pull qwen2.5vl:7b
+npm install
+npm run dev</code></pre>
       </div>
     </section>
 
+    <!-- 6. Safety & privacy -->
+    <section id="safety" class="safety" aria-labelledby="safety-title">
+      <div class="section-head">
+        <h2 id="safety-title">Safety &amp; privacy</h2>
+        <p>Be curious, be careful, and keep your photos your own.</p>
+      </div>
+      <div class="two-col">
+        <div class="tile">
+          <h3><svg class="ico ico-inline" aria-hidden="true"><use href="#i-heart"/></svg> Explore responsibly</h3>
+          <ul class="ticks">
+            <li><svg class="ico-tick" aria-hidden="true"><use href="#i-check"/></svg>Never eat a wild plant or mushroom based on an app. Some look-alikes are deadly.</li>
+            <li><svg class="ico-tick" aria-hidden="true"><use href="#i-check"/></svg>Look, don't touch. Some plants irritate skin and some animals bite or sting.</li>
+            <li><svg class="ico-tick" aria-hidden="true"><use href="#i-check"/></svg>Keep your distance from wildlife, and leave nests, flowers and rocks as you found them.</li>
+          </ul>
+        </div>
+        <div class="tile">
+          <h3><svg class="ico ico-inline" aria-hidden="true"><use href="#i-shield"/></svg> Your privacy</h3>
+          <ul class="ticks">
+            <li><svg class="ico-tick" aria-hidden="true"><use href="#i-check"/></svg>No account, no cookies, no tracking, and no database.</li>
+            <li><svg class="ico-tick" aria-hidden="true"><use href="#i-check"/></svg>Photos are resized in your browser, which also removes embedded location data.</li>
+            <li><svg class="ico-tick" aria-hidden="true"><use href="#i-check"/></svg>The app doesn't save photos or results. If the host uses a hosted model, the photo goes to that provider.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. FAQ -->
     <section id="faq" class="faq" aria-labelledby="faq-title">
       <div class="section-head"><h2 id="faq-title">Questions</h2></div>
       <details>
@@ -120,35 +200,33 @@
         <p>Good on common, well-photographed species and weaker on look-alikes, partial shots and poor light. When it isn't sure it says so and lists other possibilities. Treat it as a starting point, not a verdict.</p>
       </details>
       <details>
-        <summary>Is it safe to eat or touch what it identifies?</summary>
-        <p>No. Never eat, touch or approach a wild plant, mushroom or animal based on this app. Confirm with a local expert or field guide first.</p>
+        <summary>What can't it identify?</summary>
+        <p>Blurry or distant photos, shots with several subjects, and anything that isn't a plant, animal or fungus. It can't tell individual animals apart or diagnose plant diseases.</p>
       </details>
       <details>
-        <summary>Do you keep my photos?</summary>
-        <p>No. Photos are resized in your browser, sent once to the model, and then discarded. There is no database and no account.</p>
+        <summary>Does it need an internet connection?</summary>
+        <p>Not if you host it yourself. The model runs on your own computer, so the AI needs no internet. The hosted version needs a connection, and a phone in the field still needs a way to reach the server.</p>
       </details>
-      <details>
-        <summary>Can I run it myself?</summary>
-        <p>Yes. It is a small Node app. Run it with Ollama on your laptop, or deploy it and point it at a hosted open-weight model. The README has the steps.</p>
-      </details>
-    </section>
-
-    <section class="cta" aria-labelledby="cta-title">
-      <h2 id="cta-title">Found something new? Find out, then go find more.</h2>
-      <a class="btn btn-lg btn-invert" href="#identify">Identify something</a>
     </section>
   </main>
 
+  <!-- ============ FOOTER ============ -->
   <footer class="footer">
     <div class="footer-inner">
-      <div>
+      <div class="footer-brand">
         <a class="brand" href="#top"><span aria-hidden="true">🌿</span> Touch Grass</a>
-        <p class="muted">Open-source AI that gets you off the screen and into the world.</p>
+        <p>Open-source AI that gets you off the screen and into the world.</p>
       </div>
-      <nav aria-label="Footer">
+      <nav aria-label="Footer: explore">
+        <h3>Explore</h3>
         <a href="#identify">Identify</a>
+        <a href="#explore">What you can find</a>
         <a href="#how">How it works</a>
-        <a href="#open">Why open source</a>
+      </nav>
+      <nav aria-label="Footer: learn">
+        <h3>Learn</h3>
+        <a href="#open">Open source</a>
+        <a href="#safety">Safety &amp; privacy</a>
         <a href="#faq">FAQ</a>
       </nav>
     </div>

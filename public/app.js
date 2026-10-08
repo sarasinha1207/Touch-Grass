@@ -222,3 +222,31 @@ fetch("/api/info")
   .then((r) => (r.ok ? r.json() : null))
   .then((info) => { if (info?.model) $("model-badge").textContent = info.model; })
   .catch(() => {});
+
+// ---------- Navigation: mobile menu + highlight the section in view ----------
+const nav = $("nav");
+const menuToggle = $("menu-toggle");
+
+function setMenu(open) {
+  nav.classList.toggle("open", open);
+  menuToggle.setAttribute("aria-expanded", String(open));
+}
+menuToggle.addEventListener("click", () => setMenu(!nav.classList.contains("open")));
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") setMenu(false); });
+document.addEventListener("click", (e) => { if (!nav.contains(e.target)) setMenu(false); });
+$("site-nav").addEventListener("click", (e) => { if (e.target.closest("a")) setMenu(false); });
+
+const links = [...document.querySelectorAll(".nav-link")];
+const watched = links
+  .map((a) => document.querySelector(a.getAttribute("href")))
+  .filter(Boolean);
+
+if ("IntersectionObserver" in window) {
+  const spy = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      links.forEach((a) => a.classList.toggle("active", a.getAttribute("href") === "#" + entry.target.id));
+    });
+  }, { rootMargin: "-40% 0px -55% 0px" });
+  watched.forEach((s) => spy.observe(s));
+}

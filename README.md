@@ -34,7 +34,7 @@ Render's free tier sleeps when idle, so the first request after a break is slow.
 
 ## What's in the app
 
-- Public one-page site: hero with an example result, identifier, how it works, why open source (shows the live model name), FAQ, call to action and footer. It's responsive, supports light and dark mode, and is keyboard accessible.
+- Public one-page site with a header, a body of seven sections, and a footer. The sections are: hero (with an example result), identifier (with photo tips), what you can find, how it works, open source (live model name and run-it-yourself), safety and privacy, and FAQ. It has a mobile menu and scroll highlighting in the nav, is responsive, supports light and dark mode, and is keyboard accessible.
 - Identifier: take a photo or choose one (or drag and drop), then get a field-guide card with a copy-to-clipboard option and a nudge to go back outside.
 - Handled cases: not-a-plant/animal photos, low confidence with alternatives, unreadable model replies, model downtime, timeouts, oversized files, rate limiting and offline.
 - Hardening: strict Content-Security-Policy, model output rendered as text only, and a per-IP rate limit.
