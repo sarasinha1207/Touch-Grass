@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Touch Grass: identify any plant or animal</title>
+  <meta name="description" content="Spot something outdoors you don't recognise? Snap a photo and an open-source AI tells you what it is, then you get back outside.">
+  <meta name="theme-color" content="#2f5d3a">
+  <meta property="og:title" content="Touch Grass: identify any plant or animal">
+  <meta property="og:description" content="Snap a photo, get a field-guide card from an open-weight AI, then get back outside.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip" href="#identify">Skip to the identifier</a>
+
+  <header class="nav">
+    <a class="brand" href="#top" aria-label="Touch Grass, home"><span class="brand-mark" aria-hidden="true">🌿</span> Touch Grass</a>
+    <nav aria-label="Primary">
+      <a class="nav-link" href="#how">How it works</a>
+      <a class="nav-link" href="#open">Why open source</a>
+      <a class="nav-link" href="#faq">FAQ</a>
+      <a class="btn btn-small" href="#identify">Identify</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Open-source AI · Made for the outdoors</p>
+        <h1>What is that <em>thing</em> in the grass?</h1>
+        <p class="lead">Snap a photo of any plant or animal you don't recognise. An open-weight vision model names it and tells you what makes it special. Then put your phone away and keep exploring.</p>
+        <div class="hero-cta">
+          <a class="btn btn-lg" href="#identify">Identify something</a>
+          <a class="btn btn-ghost btn-lg" href="#how">See how it works</a>
+        </div>
+        <ul class="trust" aria-label="Highlights">
+          <li>No account needed</li>
+          <li>Photos never stored</li>
+          <li>Open-weight model</li>
+        </ul>
+      </div>
+
+      <figure class="sample" aria-label="Example result">
+        <figcaption class="sample-label">Example result</figcaption>
+        <div class="sample-card">
+          <div class="tags"><span class="tag">animal</span><span class="tag">high confidence</span></div>
+          <h2>Monarch butterfly</h2>
+          <p class="sci">Danaus plexippus</p>
+          <p>Orange wings with bold black veins. Famous for a multi-generation migration across North America.</p>
+          <dl class="facts">
+            <div><dt>Wingspan</dt><dd>About 9–10 cm</dd></div>
+            <div><dt>Lifespan</dt><dd>2–6 weeks; migrants up to 8 months</dd></div>
+            <div><dt>Food plant</dt><dd>Milkweed (caterpillars)</dd></div>
+          </dl>
+        </div>
+      </figure>
+    </section>
+
+    <section id="identify" class="identify" aria-labelledby="identify-title">
+      <div class="section-head">
+        <h2 id="identify-title">Identify what you found</h2>
+        <p>Get close, keep it in focus, and include leaves, flowers or markings.</p>
+      </div>
+
+      <div class="panel">
+        <div class="drop" id="drop" role="button" tabindex="0" aria-label="Photo preview area. Press Enter to choose a photo.">
+          <img id="preview" alt="Your photo" hidden>
+          <div id="drop-hint" class="drop-hint">
+            <span class="drop-icon" aria-hidden="true">📷</span>
+            <strong>Add a photo to begin</strong>
+            <small>Take one now, choose from your library, or drop it here.</small>
+          </div>
+        </div>
+
+        <input id="file-camera" type="file" accept="image/*" capture="environment" hidden>
+        <input id="file-upload" type="file" accept="image/*" hidden>
+
+        <div class="actions">
+          <button class="btn btn-ghost" id="take" type="button">Take photo</button>
+          <button class="btn btn-ghost" id="choose" type="button">Choose photo</button>
+        </div>
+        <button class="btn btn-block" id="go" type="button" disabled>Identify it</button>
+
+        <p id="status" class="status" role="status" aria-live="polite" hidden></p>
+      </div>
+
+      <article id="result" class="card" aria-live="polite" hidden></article>
+    </section>
+
+    <section id="how" class="how" aria-labelledby="how-title">
+      <div class="section-head">
+        <h2 id="how-title">How it works</h2>
+        <p>Three steps, and only one of them needs your screen.</p>
+      </div>
+      <ol class="steps">
+        <li><span class="num">1</span><h3>Snap</h3><p>Photograph the plant or animal. The photo is resized on your device before it's sent.</p></li>
+        <li><span class="num">2</span><h3>Identify</h3><p>A vision-language model studies it and writes a field-guide card: name, lifespan, features, range and fun facts.</p></li>
+        <li><span class="num">3</span><h3>Go outside</h3><p>Learn what you're looking at in seconds, then get back to the trail. The screen should be the shortest part of your day.</p></li>
+      </ol>
+    </section>
+
+    <section id="open" class="open" aria-labelledby="open-title">
+      <div class="section-head">
+        <h2 id="open-title">Why open source?</h2>
+        <p>Powered by <span class="model-badge" id="model-badge">an open-weight vision model</span></p>
+      </div>
+      <div class="grid">
+        <div class="tile"><h3>Swap the model</h3><p>The app talks to any OpenAI-compatible endpoint. Point it at a bigger or more specialised open model without changing a line of the app.</p></div>
+        <div class="tile"><h3>Keep photos private</h3><p>Run the model on your own machine and your photos never leave it. Nothing is saved on the server either way.</p></div>
+        <div class="tile"><h3>No lock-in, no cost per scan</h3><p>Open weights mean you choose where it runs, what it costs and how it behaves, from a laptop with no internet to a cloud host.</p></div>
+      </div>
+    </section>
+
+    <section id="faq" class="faq" aria-labelledby="faq-title">
+      <div class="section-head"><h2 id="faq-title">Questions</h2></div>
+      <details>
+        <summary>How accurate is it?</summary>
+        <p>Good on common, well-photographed species and weaker on look-alikes, partial shots and poor light. When it isn't sure it says so and lists other possibilities. Treat it as a starting point, not a verdict.</p>
+      </details>
+      <details>
+        <summary>Is it safe to eat or touch what it identifies?</summary>
+        <p>No. Never eat, touch or approach a wild plant, mushroom or animal based on this app. Confirm with a local expert or field guide first.</p>
+      </details>
+      <details>
+        <summary>Do you keep my photos?</summary>
+        <p>No. Photos are resized in your browser, sent once to the model, and then discarded. There is no database and no account.</p>
+      </details>
+      <details>
+        <summary>Can I run it myself?</summary>
+        <p>Yes. It is a small Node app. Run it with Ollama on your laptop, or deploy it and point it at a hosted open-weight model. The README has the steps.</p>
+      </details>
+    </section>
+
+    <section class="cta" aria-labelledby="cta-title">
+      <h2 id="cta-title">Found something new? Find out, then go find more.</h2>
+      <a class="btn btn-lg btn-invert" href="#identify">Identify something</a>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <a class="brand" href="#top"><span aria-hidden="true">🌿</span> Touch Grass</a>
+        <p class="muted">Open-source AI that gets you off the screen and into the world.</p>
+      </div>
+      <nav aria-label="Footer">
+        <a href="#identify">Identify</a>
+        <a href="#how">How it works</a>
+        <a href="#open">Why open source</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+    </div>
+    <p class="disclaimer"><strong>Never eat, touch or approach a wild plant or animal based on this app.</strong> AI identification can be wrong. Check with a local expert or field guide.</p>
+    <p class="muted small">Built for Hackboterfest 2026 · Touch Grass</p>
+  </footer>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
