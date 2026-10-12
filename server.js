@@ -75,10 +75,12 @@ setInterval(() => {
 }, 60_000).unref();
 
 function extractJson(text) {
-  const start = text.indexOf("{");
-  const end = text.lastIndexOf("}");
+  const match = text.match(/```(?:json)?\s*([\s\S]*?)\s*```/);
+  const target = match ? match[1].trim() : text;
+  const start = target.indexOf("{");
+  const end = target.lastIndexOf("}");
   if (start === -1 || end <= start) throw new Error("no JSON in model reply");
-  return JSON.parse(text.slice(start, end + 1));
+  return JSON.parse(target.slice(start, end + 1));
 }
 
 const str = (v, max = 400) => (typeof v === "string" ? v.trim().slice(0, max) : "");
@@ -121,12 +123,12 @@ app.post("/api/identify", rateLimit, async (req, res) => {
         model: AI_MODEL,
         temperature: 0.2,
         max_tokens: 900,
+        // Instructions go in the user turn: some open models (e.g. Gemma) reject a system role.
         messages: [
-          { role: "system", content: SYSTEM_PROMPT },
           {
             role: "user",
             content: [
-              { type: "text", text: "What is this? Reply with the JSON object only." },
+              { type: "text", text: `${SYSTEM_PROMPT}\n\nWhat is in this photo? Reply with the JSON object only.` },
               { type: "image_url", image_url: { url: image } },
             ],
           },
@@ -170,4 +172,11 @@ app.use((err, _req, res, _next) => {
 
 app.listen(PORT, () => {
   console.log(`Touch Grass on http://localhost:${PORT}  (model: ${AI_MODEL} @ ${AI_BASE_URL})`);
+  if (
+    !AI_BASE_URL.includes("localhost") &&
+    !AI_BASE_URL.includes("127.0.0.1") &&
+    (!process.env.AI_API_KEY || AI_API_KEY === "ollama")
+  ) {
+    console.warn("⚠️  Notice: AI_BASE_URL points to a remote provider, but AI_API_KEY is not set. Identification requests will likely fail until an API key is provided.");
+  }
 });

@@ -136,6 +136,21 @@ function listSection(title, items) {
   return wrap;
 }
 
+function safetyNote(text) {
+  const box = el("p", null, "warn");
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  svg.setAttribute("class", "icon");
+  svg.setAttribute("aria-hidden", "true");
+  const use = document.createElementNS("http://www.w3.org/2000/svg", "use");
+  use.setAttribute("href", "#i-alert");
+  svg.append(use);
+  const label = el("strong", "Safety note: ");
+  const body = el("span");
+  body.append(label, document.createTextNode(text));
+  box.append(svg, body);
+  return box;
+}
+
 function plainText(d) {
   const lines = [`${d.common_name} (${d.scientific_name})`, d.summary];
   [["Lifespan", d.lifespan], ["Size", d.size], ["Habitat", d.habitat], ["Found in", d.range], ["Diet", d.diet]]
@@ -201,7 +216,7 @@ function renderResult(d) {
     d.confidence !== "high" ? listSection("It could also be", d.alternatives) : null,
   ].filter(Boolean).forEach((s) => resultEl.append(s));
 
-  if (d.safety_note) resultEl.append(el("p", "⚠️ " + d.safety_note, "warn"));
+  if (d.safety_note) resultEl.append(safetyNote(d.safety_note));
   resultEl.append(el("p", NUDGES[Math.floor(Math.random() * NUDGES.length)], "nudge"));
 
   const copy = el("button", "Copy details", "btn btn-ghost");
@@ -249,4 +264,42 @@ if ("IntersectionObserver" in window) {
     });
   }, { rootMargin: "-40% 0px -55% 0px" });
   watched.forEach((s) => spy.observe(s));
+}
+
+// ---------- Header shadow once the page scrolls ----------
+const onScroll = () => nav.classList.toggle("scrolled", window.scrollY > 8);
+onScroll();
+window.addEventListener("scroll", onScroll, { passive: true });
+
+// ---------- Scroll reveal (styles only apply when boot.js added html.js) ----------
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const revealTargets = [...document.querySelectorAll(
+  ".section-head, .panel, .tips, .tile, .steps li, .faq details",
+)];
+
+function settle(node) {
+  // Drop the reveal classes afterwards so hover effects use their normal timing.
+  setTimeout(() => {
+    node.classList.remove("reveal", "in");
+    node.style.transitionDelay = "";
+  }, 1100);
+}
+
+if (!reduceMotion && "IntersectionObserver" in window) {
+  const seen = new Map();
+  revealTargets.forEach((node) => {
+    const siblings = seen.get(node.parentElement) || 0;
+    seen.set(node.parentElement, siblings + 1);
+    node.classList.add("reveal");
+    node.style.transitionDelay = `${Math.min(siblings, 5) * 90}ms`;
+  });
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add("in");
+      settle(entry.target);
+      io.unobserve(entry.target);
+    });
+  }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
+  revealTargets.forEach((node) => io.observe(node));
 }
