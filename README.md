@@ -4,9 +4,8 @@
 
 **Touch Grass** is an open-source web application designed to encourage people to explore the outdoors. Spot a plant, animal, or fungus you don't recognise? Snap a photo, and an open-weight vision model identifies it and returns a rich field-guide card with its common and scientific names, key identification features, lifespan, range, fun facts, and safety notes. Once you learn what you're looking at, put your phone away and get back to the trail!
 
-Photos are downscaled and stripped of GPS/EXIF metadata directly in your browser before transmission, and are never saved to a database or disk.
 
-![Touch Grass Application Screenshot](static/images/Home.png)
+<img width="1544" height="917" alt="Home" src="static/images/Home.png" />
 
 ---
 
@@ -30,8 +29,8 @@ Photos are downscaled and stripped of GPS/EXIF metadata directly in your browser
 - **Backend:** Node.js ($\ge 20$), Express (Single runtime dependency)
 - **AI Engine:** Any OpenAI-compatible multimodal endpoint:
   - **Local:** [Ollama](https://ollama.com) (`qwen2.5vl:7b`)
-  - **Cloud / Hosted:** [OpenRouter](https://openrouter.ai), [Google Gemini](https://ai.google.dev), or [Together AI](https://together.xyz)
-- **Deployment:** Render (via `render.yaml` Blueprint or Web Service)
+  - **Cloud / Hosted:** [OpenRouter](https://openrouter.ai), [Google Gemini](https://ai.google.dev)
+- **Deployment:** Render 
 
 ---
 
